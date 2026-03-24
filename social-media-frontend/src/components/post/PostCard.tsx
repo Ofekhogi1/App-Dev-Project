@@ -15,7 +15,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 const formatDate = (iso: string) => {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 };
 
 const PostCard: React.FC<PostCardProps> = ({ post, onDeleted }) => {
