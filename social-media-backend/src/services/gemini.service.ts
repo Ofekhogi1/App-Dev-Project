@@ -7,6 +7,8 @@ export interface SearchIntent {
   daysAgo: number | null;
 }
 
+const MAX_EMBEDDING_RETRIES = 3;
+
 let genAI: GoogleGenerativeAI | null = null;
 
 const getGenAI = (): GoogleGenerativeAI | null => {
