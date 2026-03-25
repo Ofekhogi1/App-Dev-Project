@@ -31,11 +31,27 @@ export const getComments = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
-  const comments = await Comment.find({ post: post._id })
+  const limit = Math.min(parseInt(req.query.limit as string) || 20, 50);
+  const cursor = req.query.cursor as string | undefined;
+
+  let commentFilter: Record<string, unknown> = { post: post._id };
+  if (cursor) {
+    commentFilter = { ...commentFilter, _id: { $gt: cursor } };
+  }
+
+  const comments = await Comment.find(commentFilter)
     .sort({ createdAt: 1 })
+    .limit(limit + 1)
     .populate('author', 'username avatarUrl');
 
-  res.json({ comments });
+  const hasMore = comments.length > limit;
+  if (hasMore) comments.pop();
+
+  const nextCursor = hasMore && comments.length > 0
+    ? comments[comments.length - 1]._id.toString()
+    : null;
+
+  res.json({ comments, nextCursor, hasMore });
 });
 
 /**
