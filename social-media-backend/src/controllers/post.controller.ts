@@ -13,6 +13,8 @@ const DEFAULT_PAGE_SIZE = 10;
 
 const DEFAULT_PAGE_SIZE = 10;
 
+const DEFAULT_PAGE_SIZE = 10;
+
 const buildCursorFilter = (cursor?: string, extraFilter: Record<string, unknown> = {}) => {
   if (!cursor) return extraFilter;
   const [ts, id] = cursor.split('_');
