@@ -9,6 +9,8 @@ export interface SearchIntent {
 
 const MAX_EMBEDDING_RETRIES = 3;
 
+const MAX_EMBEDDING_RETRIES = 3;
+
 let genAI: GoogleGenerativeAI | null = null;
 
 const getGenAI = (): GoogleGenerativeAI | null => {
