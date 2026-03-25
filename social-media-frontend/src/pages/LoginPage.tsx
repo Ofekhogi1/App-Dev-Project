@@ -14,7 +14,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-const GOOGLE_AUTH_URL = `${import.meta.env.VITE_API_URL || ''}/api/auth/google`;
+const GOOGLE_AUTH_URL = `${import.meta.env.VITE_API_URL ?? ''}/api/auth/google`;
 
 const LoginPage: React.FC = () => {
   const { login } = useAuth();
