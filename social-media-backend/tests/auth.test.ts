@@ -27,6 +27,12 @@ describe('Auth API', () => {
       expect(res.status).toBe(409);
     });
 
+    it('should return 409 if email already exists', async () => {
+      await request(app).post('/api/auth/register').send({ username: 'dupuser', email: 'dup@test.com', password: 'password123' });
+      const res = await request(app).post('/api/auth/register').send({ username: 'dupuser2', email: 'dup@test.com', password: 'password123' });
+      expect(res.status).toBe(409);
+    });
+
     it('should return 400 if required fields are missing', async () => {
       const res = await request(app)
         .post('/api/auth/register')
