@@ -206,8 +206,12 @@ export const changePassword = asyncHandler(async (req: Request, res: Response) =
     newPassword: string;
   };
 
-  if (!newPassword || newPassword.length < 6) {
-    res.status(400).json({ message: 'New password must be at least 6 characters' });
+  const hasLetter = /[A-Za-z]/.test(newPassword || '');
+  const hasDigit = /\d/.test(newPassword || '');
+  if (!newPassword || newPassword.length < 8 || !hasLetter || !hasDigit) {
+    res.status(400).json({
+      message: 'New password must be at least 8 characters and contain both letters and numbers',
+    });
     return;
   }
 
