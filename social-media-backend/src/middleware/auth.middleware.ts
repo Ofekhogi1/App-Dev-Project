@@ -26,6 +26,11 @@ export const authenticate = asyncHandler(async (req: Request, res: Response, nex
     return;
   }
 
+  if (!token) {
+    res.status(401).json({ message: 'Malformed authorization header' });
+    return;
+  }
+
   try {
     const payload = jwt.verify(token, env.JWT_ACCESS_SECRET) as JwtPayload;
     const user = await User.findById(payload.sub);
