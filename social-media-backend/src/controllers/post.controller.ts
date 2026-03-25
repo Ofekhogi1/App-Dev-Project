@@ -117,6 +117,11 @@ export const createPost = asyncHandler(async (req: Request, res: Response) => {
     return;
   }
 
+  if (hasText && text!.trim().length > MAX_POST_TEXT_LENGTH) {
+    res.status(400).json({ message: 'Post text cannot exceed ' + MAX_POST_TEXT_LENGTH + ' characters' });
+    return;
+  }
+
   const imageUrl = req.file ? `/uploads/posts/${req.file.filename}` : undefined;
 
   const post = await Post.create({
