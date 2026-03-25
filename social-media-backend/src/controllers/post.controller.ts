@@ -52,7 +52,9 @@ const buildCursorFilter = (cursor?: string, extraFilter: Record<string, unknown>
 export const getFeed = asyncHandler(async (req: Request, res: Response) => {
   const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
   const cursor = req.query.cursor as string | undefined;
-  const filter = buildCursorFilter(cursor);
+  const authorId = req.query.author as string | undefined;
+  const extraFilter = authorId ? { author: authorId } : {};
+  const filter = buildCursorFilter(cursor, extraFilter);
 
   const posts = await Post.find(filter)
     .sort({ createdAt: -1, _id: -1 })
