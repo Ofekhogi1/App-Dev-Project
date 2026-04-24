@@ -4,6 +4,7 @@ import { Post } from '../models/post.model';
 import { IUser } from '../models/user.model';
 import { asyncHandler } from '../utils/asyncHandler';
 import { Comment } from '../models/comment.model';
+import { Comment } from '../models/comment.model';
 
 /**
  * @swagger
