@@ -11,7 +11,7 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ): void => {
-  console.error(err);
+  console.error(`[${new Date().toISOString()}] ${err.name}: ${err.message}`);
 
   // Multer errors
   if (err instanceof multer.MulterError) {
@@ -26,6 +26,12 @@ export const errorHandler = (
   // Mongoose duplicate key error
   if (err.code === 11000 || String(err.code) === '11000') {
     res.status(409).json({ message: 'A resource with that value already exists' });
+    return;
+  }
+
+  // Mongoose CastError (invalid ObjectId format)
+  if (err.name === 'CastError') {
+    res.status(400).json({ message: 'Invalid resource identifier format' });
     return;
   }
 
