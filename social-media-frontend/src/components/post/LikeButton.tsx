@@ -11,6 +11,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ postId, initialLiked, initialCo
   const [liked, setLiked] = useState(initialLiked);
   const [count, setCount] = useState(initialCount);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const toggle = async () => {
     if (loading) return;
